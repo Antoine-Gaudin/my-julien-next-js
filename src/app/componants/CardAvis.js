@@ -10,7 +10,7 @@ const CardAvis = () => {
   useEffect(() => {
     const fetchAvis = async () => {
       try {
-        const response = await fetch("http://localhost:1337/api/avisgoogles");
+        const response = await fetch("https://my-julien-strapi-project.onrender.com/api/avisgoogles");
         if (!response.ok) {
           throw new Error("Erreur lors de la récupération des avis");
         }

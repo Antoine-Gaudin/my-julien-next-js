@@ -10,7 +10,7 @@ const Articles = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const res = await fetch("http://localhost:1337/api/Articles");
+        const res = await fetch("https://my-julien-strapi-project.onrender.com/api/Articles");
         if (!res.ok) {
           throw new Error("Failed to fetch articles");
         }

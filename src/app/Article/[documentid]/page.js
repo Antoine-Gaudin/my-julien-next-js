@@ -13,12 +13,12 @@ const ArticlePage = () => {
     const fetchArticle = async () => {
       try {
         // Récupérer l'article actuel
-        const responseArticle = await axios.get(`http://localhost:1337/api/articles/${documentid}`);
+        const responseArticle = await axios.get(`https://my-julien-strapi-project.onrender.com/api/articles/${documentid}`);
         setArticle(responseArticle.data.data);
         console.log("Article reçu :", responseArticle.data.data);
 
         // Récupérer tous les articles, exclure celui en cours
-        const responseArticles = await axios.get("http://localhost:1337/api/articles");
+        const responseArticles = await axios.get("https://my-julien-strapi-project.onrender.com/api/articles");
         const articlesExclusProduitActuel = responseArticles.data.data.filter(
           (prod) => prod.id !== documentid // Exclut l'article actuel
         );

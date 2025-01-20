@@ -11,7 +11,7 @@ const Presentation = () => {
   useEffect(() => {
     const fetchPresentations = async () => {
       try {
-        const res = await fetch("http://localhost:1337/api/presentations");
+        const res = await fetch("https://my-julien-strapi-project.onrender.com/api/presentations");
         if (!res.ok) {
           throw new Error("Failed to fetch presentations");
         }
