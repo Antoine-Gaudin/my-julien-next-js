@@ -1,0 +1,20 @@
+.contenu {
+    max-width: 150vh;
+    text-align: justify;
+    margin: 2rem;
+  }
+  
+.item{
+    padding: 1rem;
+}
+
+.contenu h2 {
+    margin-bottom: 4vh;
+    margin-top: 3vh;
+    color:   #e1650d;
+    font-size: 2rem;
+  }
+  
+
+
+

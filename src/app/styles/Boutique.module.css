@@ -1,0 +1,70 @@
+.boutique {
+    background-color: rgba(1, 1, 1, 1);
+    overflow: hidden;
+    height: 95vh;
+    width: 100%;
+    display: flex;
+  }
+  
+  .header-boutique {
+    height: 100%;
+    width: 100%;
+    color: #ffffff;
+  }
+  
+  .container-Btitle {
+    margin-left: 20%;
+    margin-top: 20%;
+  }
+  
+  .header-boutique h2 {
+    font-size: 7vh;
+    margin-bottom: 2vh;
+  }
+  
+  .header-photo {
+    height: 100%;
+    width: 100%;
+    margin-top: -45vh;
+  }
+  
+  .header-photo img {
+    width: 100%;
+  }
+  
+  .animated-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #e1650d;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .animated-button:hover {
+    background-color: #d1540b;
+  }
+  
+  .arr-1,
+  .arr-2 {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .text {
+    margin-left: 8px;
+  }
+  
+  .circle {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #fff;
+    margin-left: 4px;
+  }

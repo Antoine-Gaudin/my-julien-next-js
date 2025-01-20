@@ -1,0 +1,49 @@
+.navigation {
+    margin-top: 2.5vh;
+    background-color: rgba(44, 44, 44, 0.8);
+  }
+  
+  .navigation ul {
+    padding: 1rem;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .navigation a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 1.2rem;
+    transition: 0.5s;
+  }
+  
+  .navigation a:hover,
+  .navigation a:active,
+  .navigation a:visited {
+    color: white; /* Hérite de la couleur du parent */
+    text-decoration: none; /* Supprime le soulignement */
+  }
+  
+  .navigation a:hover {
+    background-color: #e1650d; /* Utilisation de l'orange */
+    transition: 0.5s;
+  }
+  
+  .navigation a:hover li {
+    color: white;
+  }
+  
+  .navigation a li {
+    color: white;
+  }
+  
+  .sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+  }
+  

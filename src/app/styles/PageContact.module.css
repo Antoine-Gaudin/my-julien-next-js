@@ -1,0 +1,112 @@
+.container-Ctitle {
+    width: 65vw;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 15px;
+  }
+  
+  .container-Ctitle h2 {
+    font-size: 2rem;
+    color: #e1650d; /* Remplacement de $orange */
+  }
+  
+  .container-Ctitle div {
+    background-color: #e1650d; /* Remplacement de $orange */
+    width: 19rem;
+    height: 5px;
+    margin-top: 1vh;
+    margin-bottom: 7vh;
+  }
+  
+  .container-centre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1vh;
+    flex-wrap: wrap;
+  }
+  
+  .container-adresse {
+    padding: 1vh;
+    background-color: #333; /* Remplacement de $black */
+    color: #fff; /* Remplacement de $white */
+    border-radius: 7px;
+    max-width: 400px; /* Ajout pour le responsive */
+    margin: 10px;
+  }
+  
+  .container-adresse h3 {
+    font-size: 4vh;
+    padding: 1vh;
+  }
+  
+  .container-adresse p {
+    margin: 1vh;
+    font-size: 2.5vh;
+  }
+  
+  .container-adresse iframe {
+    width: 100%; /* Responsive */
+    height: 200px; /* Hauteur ajustée */
+    padding: 1vh;
+  }
+  
+  .barre-Cadresse {
+    background-color: #fff; /* Remplacement de $white */
+    height: 1px;
+    margin: 7px;
+  }
+  
+  .form-Pcontacte {
+    margin: 1vh;
+    padding: 1.5vh;
+    border-radius: 7px;
+    width: 100%;
+    max-width: 600px; /* Ajustement pour le responsive */
+  }
+  
+  .form-Pcontacte h3 {
+    color: #e1650d; /* Remplacement de $orange */
+    font-size: 5vh;
+    margin-bottom: 3vh;
+  }
+  
+  .form-Pcontacte input[type="text"],
+  .form-Pcontacte textarea {
+    width: 100%;
+    border-radius: 7px;
+    padding: 2vh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    border: 1px solid #ccc;
+  }
+  
+  .form-Pcontacte textarea {
+    height: 15vh;
+  }
+  
+  .form-Pcontacte input[type="button"] {
+    background-color:#333; /* Remplacement de $black */
+    border: none;
+    color: #fff; /* Remplacement de $white */
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .form-Pcontacte input[type="button"]:hover {
+    background-color: #e1650d; /* Remplacement de $orange */
+    transform: scale(1.05);
+  }
+  
+  .form-Pcontacte input[type="button"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px #e1650d; /* Remplacement de $orange */
+  }
+  
