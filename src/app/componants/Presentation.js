@@ -1,39 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "../styles/Presentation.module.css"; // Import du CSS Module
+import DataText from "../data/datatext"; // <-- adapte le chemin si besoin
 
 const Presentation = () => {
-  const [presentations, setPresentations] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchPresentations = async () => {
-      try {
-        const res = await fetch("https://my-julien-strapi-project.onrender.com/api/presentations");
-        if (!res.ok) {
-          throw new Error("Failed to fetch presentations");
-        }
-        const data = await res.json();
-        setPresentations(data.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPresentations();
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  const presentations = DataText; // tableau [{ id, title, text }]
 
   return (
     <div>

@@ -1,13 +1,59 @@
 "use client";
 
+import React, { useRef, useLayoutEffect, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useAnimationFrame } from "framer-motion";
 import photo from "../../public/images/groupVo.png";
 import Boutton from "./componants/Boutton";
 import Presentation from "./componants/Presentation";
 import Articles from "./componants/Articles";
 import FormContact from "./componants/FormContact";
 import GoogleMap from "./componants/GoogleMaps";
+
+/** Marquee vertical sans trou (2 copies qui se relaient) */
+const VerticalMarqueeDual = ({ src, speed = 20, className = "" }) => {
+  const ref = useRef(null);
+  const [h, setH] = useState(0);
+  const y1 = useMotionValue(0);
+  const y2 = useMotionValue(0);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const measure = () => {
+      const nh = el.clientHeight || 0;
+      setH(nh);
+      y1.set(0);
+      y2.set(-nh);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [y1, y2]);
+
+  useAnimationFrame((t, delta) => {
+    if (!h) return;
+    const dy = (speed * delta) / 1000; // px/s
+    const n1 = y1.get() + dy;
+    const n2 = y2.get() + dy;
+    y1.set(n1 >= h ? n1 - 2 * h : n1);
+    y2.set(n2 >= h ? n2 - 2 * h : n2);
+  });
+
+  return (
+    <div ref={ref} className={`overflow-hidden relative ${className}`}>
+      {/* copie 1 */}
+      <motion.div style={{ y: y1 }} className="absolute inset-0 z-0 will-change-transform transform-gpu">
+        <Image src={src} alt="bande 1" fill priority className="object-cover" sizes="100vw" />
+      </motion.div>
+      {/* copie 2 */}
+      <motion.div style={{ y: y2 }} className="absolute inset-0 z-0 will-change-transform transform-gpu">
+        <Image src={src} alt="bande 2" fill priority className="object-cover" sizes="100vw" />
+      </motion.div>
+    </div>
+  );
+};
 
 export default function Home() {
   const leboncoin = () => {
@@ -19,67 +65,55 @@ export default function Home() {
 
   return (
     <>
-      <div className="bg-black overflow-hidden h-[95vh] w-full flex flex-col lg:flex-row">
-        {/* Texte et bouton */}
-        <div className="h-full w-full text-white flex flex-col justify-center items-center lg:items-start lg:ml-[10%]">
-          <div className="text-center lg:text-left">
-            <h2 className="text-3xl lg:text-[7vh] font-bold mb-4">Notre boutique</h2>
-            <p className="text-sm lg:text-base">Retrouvez tous nos véhicules sur LeBoncoin !</p>
-            <div className="flex justify-center mt-4">
-              <Boutton
-                className="inline-flex items-center justify-center px-5 py-2 text-sm lg:text-lg font-bold text-white bg-[#e1650d] rounded-lg hover:bg-[#d1540b] transition-all duration-300"
-                title="Visiter Boutique"
-                onClick={leboncoin}
-              />
-            </div>
-          </div>
-        </div>
+{/* SECTION HERO */}
+<div className="relative h-[95vh] w-full flex flex-col lg:flex-row overflow-hidden bg-black">
+{/* TEXTE + BOUTON */}
+<div className="relative z-20 h-full w-full flex flex-col justify-center items-center lg:items-start lg:ml-[10%]">
 
-        <motion.div className="hidden lg:block h-64 w-full lg:h-full lg:w-1/2 mt-4 lg:mt-0 overflow-hidden relative">
-  {/* Première image */}
-  <motion.div
-    initial={{ y: "-100%" }}
-    animate={{ y: "100%" }}
-    transition={{
-      duration: 40,
-      repeat: Infinity,
-      ease: "linear",
-    }}
-    className="absolute top-0 left-0 w-full h-full"
-  >
-    <Image
-      src={photo}
-      alt="Group of vehicles"
-      priority
-      className="w-full h-full object-cover"
-    />
-  </motion.div>
-
-  {/* Deuxième image */}
-  <motion.div
-    initial={{ y: "0px"}} // Commence directement à 0%
-    animate={{ y: "200%" }} // Descend complètement
-    transition={{
-      duration: 40,
-      repeat: Infinity,
-      ease: "linear",
-    }}
-    className="absolute top-[-100%] left-0 w-full h-full"
-  >
-    <Image
-      src={photo}
-      alt="Group of vehicles duplicate"
-      priority
-      className="w-full h-full object-cover"
-    />
-  </motion.div>
-</motion.div>
-
+  {/* --- Variante MOBILE : avec overlay --- */}
+  <div className="block lg:hidden w-[90%]">
+    <div className="bg-black/60 rounded-xl px-6 py-6">
+      <h2 className="text-3xl font-bold mb-4 text-white">Notre boutique</h2>
+      <p className="text-sm text-white">Retrouvez tous nos véhicules sur LeBoncoin !</p>
+      <div className="flex justify-center mt-4">
+        <Boutton
+          className="inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-white bg-[#e1650d] rounded-lg hover:bg-[#d1540b] transition-all duration-300"
+          title="Visiter Boutique"
+          onClick={leboncoin}
+        />
       </div>
+    </div>
+  </div>
 
-      {/* Autres composants */}
+  {/* --- Variante DESKTOP : sans overlay --- */}
+  <div className="hidden lg:block">
+    <h2 className="lg:text-[7vh] font-bold mb-4 text-white">Notre boutique</h2>
+    <p className="lg:text-base text-white">Retrouvez tous nos véhicules sur LeBoncoin !</p>
+    <div className="mt-4">
+      <Boutton
+        className="inline-flex items-center justify-center px-5 py-2 lg:text-lg font-bold text-white bg-[#e1650d] rounded-lg hover:bg-[#d1540b] transition-all duration-300"
+        title="Visiter Boutique"
+        onClick={leboncoin}
+      />
+    </div>
+  </div>
+
+</div>
+
+
+
+
+  {/* BANDE ANIMÉE — mobile: fond plein écran derrière le texte / desktop: colonne droite */}
+  <div className="absolute inset-0 z-0 lg:static lg:z-0 block h-full w-full lg:w-1/2 mt-0 lg:mt-0 bg-black">
+    <VerticalMarqueeDual src={photo} speed={20} className="h-full w-full" />
+  </div>
+</div>
+
+
+
+      {/* autres composants */}
       <Presentation />
-      <Articles />
+      {/* <Articles /> */}
       <FormContact />
       <GoogleMap />
     </>

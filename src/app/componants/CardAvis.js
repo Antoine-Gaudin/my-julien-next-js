@@ -1,30 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Boutton from "./Boutton";
+import DataAvis from "../data/DataAvis"; // ⚠️ ajuste le chemin si besoin
 
 const CardAvis = () => {
-  const [avisData, setAvisData] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchAvis = async () => {
-      try {
-        const response = await fetch("https://my-julien-strapi-project.onrender.com/api/avisgoogles");
-        if (!response.ok) {
-          throw new Error("Erreur lors de la récupération des avis");
-        }
-        const result = await response.json();
-        console.log("Données reçues depuis Strapi :", result.data);
-        setAvisData(result.data);
-      } catch (err) {
-        console.error("Erreur lors de la récupération des avis :", err);
-        setError(err.message);
-      }
-    };
-
-    fetchAvis();
-  }, []);
+  const avisData = DataAvis;
 
   const GoogleAvis = () => {
     window.open(
@@ -33,12 +14,8 @@ const CardAvis = () => {
     );
   };
 
-  if (error) {
-    return <p className="text-red-500">Erreur : {error}</p>;
-  }
-
-  if (!avisData.length) {
-    return <p className="text-gray-500">Chargement des avis...</p>;
+  if (!avisData || !avisData.length) {
+    return <p className="text-gray-500">Aucun avis pour le moment.</p>;
   }
 
   return (
@@ -51,10 +28,12 @@ const CardAvis = () => {
         <div className="w-16 sm:w-32 h-[5px] bg-[#e1650d] my-4"></div>
       </div>
 
-      {/* Avis List */}
+      {/* Liste des avis */}
       <div className="space-y-8">
         {avisData.map((item) => {
-          const { id, name, nametag, note, avis } = item;
+          const { id, name, nameTag, note, Avis } = item;
+          const rating = Array.isArray(note) && note.length > 0 ? note[0] : 0;
+
           return (
             <div
               key={id}
@@ -63,24 +42,26 @@ const CardAvis = () => {
               <div className="flex items-center space-x-4">
                 {/* Profil cercle */}
                 <span className="w-12 h-12 sm:w-16 sm:h-16 bg-[#e1650d] rounded-full text-white text-center leading-[3rem] sm:leading-[4rem] text-lg sm:text-xl">
-                  {nametag}
+                  {nameTag}
                 </span>
                 {/* Nom */}
                 <span className="text-xl sm:text-2xl font-bold">{name}</span>
               </div>
-              {/* Stars */}
+
+              {/* Étoiles */}
               <div className="my-2">
-                {Array.from({ length: 5 }).map((_, index) => (
+                {Array.from({ length: 5 }).map((_, idx) => (
                   <i
-                    key={index}
+                    key={idx}
                     className={`${
-                      index < note ? "fas fa-star" : "far fa-star"
+                      idx < rating ? "fas fa-star" : "far fa-star"
                     } text-yellow-500`}
                   ></i>
                 ))}
               </div>
+
               {/* Texte de l'avis */}
-              <p className="text-gray-800">{avis}</p>
+              <p className="text-gray-800">{Avis}</p>
             </div>
           );
         })}

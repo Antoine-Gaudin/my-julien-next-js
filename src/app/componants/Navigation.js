@@ -31,9 +31,7 @@ const Navigation = () => {
   return (
     <div className={styles.navigation} ref={topElementRef}>
       <ul
-        className={`${styles.navigation} ${
-          isSticky ? styles.sticky : ""
-        }`}
+        className={`${styles.navigation} ${isSticky ? styles.sticky : ""}`}
         ref={menuRef}
       >
         <li>
@@ -46,11 +44,13 @@ const Navigation = () => {
             <span>Contact</span>
           </Link>
         </li>
-        <li>
-          <Link href="/Articles" className={styles.link}>
-            <span>Articles</span>
-          </Link>
-        </li>
+        {/* 
+<li>
+  <Link href="/Articles" className={styles.link}>
+    <span>Articles</span>
+  </Link>
+</li>
+*/}
       </ul>
     </div>
   );
