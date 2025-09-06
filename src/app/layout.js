@@ -3,7 +3,8 @@ import "./globals.css";
 import NameTag from "./componants/NameTag";
 import Navigation from "./componants/Navigation";
 import Footer from "./componants/Footer";
-import Script from "next/script"; // 👈 ajoute ça
+import Script from "next/script";
+import GA from "./GA"; // ← ajoute le suivi des changements de page
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,16 +26,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fr">
       <head>
-        {/* Ajout direct de Font Awesome */}
+        {/* Font Awesome */}
         <link
           rel="stylesheet"
           href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {/* Google Analytics */}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* Google Analytics (base) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-HBSHMTFK39"
           strategy="afterInteractive"
@@ -50,6 +49,10 @@ export default function RootLayout({ children }) {
 
         <NameTag />
         <Navigation />
+
+        {/* GA: envoie un page_view à chaque navigation côté client */}
+        <GA />
+
         {children}
         <Footer />
       </body>
