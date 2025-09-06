@@ -4,17 +4,11 @@ import NameTag from "./componants/NameTag";
 import Navigation from "./componants/Navigation";
 import Footer from "./componants/Footer";
 import Script from "next/script";
-import GA from "./GA"; // ← ajoute le suivi des changements de page
+import GA from "./GA";
+import { Suspense } from "react";   // ← ajoute ça
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata = {
   title: "Vintage Automobiles 1856",
@@ -26,14 +20,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fr">
       <head>
-        {/* Font Awesome */}
         <link
           rel="stylesheet"
           href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {/* Google Analytics (base) */}
+        {/* GA base */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-HBSHMTFK39"
           strategy="afterInteractive"
@@ -50,8 +43,10 @@ export default function RootLayout({ children }) {
         <NameTag />
         <Navigation />
 
-        {/* GA: envoie un page_view à chaque navigation côté client */}
-        <GA />
+        {/* 🔧 Important: wrap with Suspense to satisfy Next during prerender (404 etc.) */}
+        <Suspense fallback={null}>
+          <GA />
+        </Suspense>
 
         {children}
         <Footer />
